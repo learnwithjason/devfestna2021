@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TypeScript Serverless App @ DevFest North America 2021</title>
+</head>
+<body>
+  <h1>A List of My Pets</h1>
+
+  <ul></ul>
+
+  <script>
+    async function load() {
+      const res = await fetch('/api/pets');
+
+      if (!res.ok) {
+        console.error(res);
+        return;
+      }
+
+      const pets = await res.json();
+
+      const list = document.querySelector('ul');
+
+      pets.forEach((pet) => {
+        const item = document.createElement('li');
+        const text = `${pet.name} is a ${pet.type}`;
+        item.innerText = text;
+
+        list.appendChild(item);
+      });
+    }
+
+    load();
+  </script>
+</body>
+</html>
